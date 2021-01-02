@@ -2,7 +2,7 @@ from django.shortcuts import render, get_list_or_404, get_object_or_404
 from .models import Post 
 # Create your views here.
 
-def deatil(request, slug):
+def detail(request, slug):
     post = get_object_or_404(Post, slug=slug) 
     return render(request, 'blog/detail.html', {'post':post})
 

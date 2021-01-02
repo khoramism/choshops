@@ -1,27 +1,28 @@
 from django.db import models
-from account.models import Shopper 
+#from account.models import Account 
 
+from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
 # class Shop 
 # class Issiues 
 # class Images 
 # class Products
 # class Session(CARD or Sth like that) 
-class Category:
-	pass 
+class Category(models.Model):
+	pass
 
-class SubCategory:
+class SubCategory(models.Model):
 	pass
 
 class Location(models.Model):
 	pass
 
-class Shop(models.model):
+class Shop(models.Model):
 	name = models.CharField(default= 'ChoShop', max_length=50)
 	
-	loc = models.OneToOneField(Location, on_delete=models.SET_NULL)
+	loc = models.OneToOneField(Location, on_delete=models.SET_NULL, null=True)
 	
-	shopper = models.OneToOneField(Shopper, on_delete=models.CASCADE)
+	#shopper = models.OneToOneField(Shopper, on_delete=models.CASCADE)
 	#products = models.ForeignKey(Product, )
 
 	def __str__(self):
@@ -30,9 +31,8 @@ class Shop(models.model):
 
 class Product(models.Model):
 	STATUS_CHOICES = (
-		('availabe', "موجود")
-
-
+		('available', "موجود"),
+		('out', 'ناموجود')
 	)
 	title = models.CharField(default='ghups', max_length=50)
 	
@@ -48,7 +48,7 @@ class Product(models.Model):
 	
 	status = models.CharField(max_length=60, choices = STATUS_CHOICES, default='draft', verbose_name='وضعیت')
 
-	numbers = models.PositiveSmallIntegerField(max_digits=4)
+	numbers = models.PositiveSmallIntegerField()
 
 	is_finishing = models.BooleanField(verbose_name='آیا محصول در آستانه به پایان رسیدن است؟', default=False)
 
@@ -57,6 +57,7 @@ class Product(models.Model):
 	sub_category = models.ManyToManyField(SubCategory)	
 
 	for_the_shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+
 
 
 	def save(self):

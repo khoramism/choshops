@@ -2,6 +2,11 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.contrib.auth import get_user_model
 from django.utils import timezone 
+from shop.models import Shop 
+
+
+
+
 
 class AccountManager(BaseUserManager):
 	use_in_migrations = True 
@@ -58,6 +63,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 	# REQUIRED_FIELDS are the mandatory fields other than the unique identifier
 	REQUIRED_FIELDS = ['name', 'phone']
 
+
 # https://dev.to/joshwizzy/customizing-django-authentication-using-abstractbaseuser-llg
 
 	def get_full_name(self):
@@ -67,9 +73,18 @@ class Account(AbstractBaseUser, PermissionsMixin):
 		return self.name.split()[0]
 
 
+	#class Meta:
+	#	abstract = True 
 
 
+class Buyer(Account):
+	pass
 
+
+class Shopper(Account):
+	shops = models.OneToOneField(Shop, on_delete=models.CASCADE)
+
+	
 
 
 

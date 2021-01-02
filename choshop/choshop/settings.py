@@ -37,8 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Outdoor apps 
+    'ckeditor',
+    'ckeditor_uploader',
 
+    # Our apps 
     'account.apps.AccountConfig',
+    'blog.apps.BlogConfig',
+    'shop.apps.ShopConfig',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +131,7 @@ AUTH_USER_MODEL = 'account.Account'
 
 # URL 
 ALLOW_UNICODE_SLUGS = True
+
+
+### CK EDITOR 
+CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'

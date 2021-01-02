@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from .models import Account 
 
-class RegisterationForm(forms.ModelForm):
+class RegistrationForm(forms.ModelForm):
 	password = forms.CharField(label='Password', widget=forms.PasswordInput)
 	
 	class Meta:

@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
 from account.models import Account 
+
+from django.utils import timezone
 # Create your models here.
 
 def dir_path(instance, filename): 
