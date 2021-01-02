@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+   # 'django.contrib.gis',
     # Outdoor apps 
     'ckeditor',
     'ckeditor_uploader',
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'blog.apps.BlogConfig',
     'shop.apps.ShopConfig',
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +137,11 @@ ALLOW_UNICODE_SLUGS = True
 
 ### CK EDITOR 
 CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
+
+
+## SESSION STUFF 
+# add this later in production 
+SESSION_COOKIE_DOMAIN = None 
+SESSION_COOKIE_SECURE = True 
+SESSION_EXPIRE_AT_BROWSER_CLOSE =False
+CART_SESSION_ID = 'cart'

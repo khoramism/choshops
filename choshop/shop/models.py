@@ -1,4 +1,5 @@
 from django.db import models
+#from django.contrib.gis.db import models as gis_models 
 #from account.models import Account 
 
 from django.utils import timezone
@@ -9,12 +10,34 @@ from ckeditor_uploader.fields import RichTextUploadingField
 # class Products
 # class Session(CARD or Sth like that) 
 class Category(models.Model):
-	pass
+	name = models.CharField(max_length=50)
+	slug = models.SlugField(max_length=20)
+
+	def __str__(self):
+		return self.name 
+
+	class Meta:
+		ordering = ('name', )
+		verbose_name = 'تگ'
+		verbose_name_plural = 'تگ ها '
 
 class SubCategory(models.Model):
-	pass
+	
+	name = models.CharField(max_length=50)
+	slug = models.SlugField(max_length=20)
+	cat = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return f'{self.name} in {self.cat}' 
+
+	class Meta:
+		ordering = ('name', )
+		verbose_name = 'تگ'
+		verbose_name_plural = 'تگ ها '
+
 
 class Location(models.Model):
+	#loc = gis_models.PointField()
 	pass
 
 class Shop(models.Model):
@@ -58,8 +81,10 @@ class Product(models.Model):
 
 	for_the_shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
 
+	price = models.DecimalField(max_digits=10, decimal_places=2)
 
-
+	image = models.ImageField(upload_to='products/%Y/%m/%d',blank=True)
+	
 	def save(self):
 		# SUper ... 
 		if self.numbers > 15:
