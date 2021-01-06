@@ -1,0 +1,11 @@
+
+
+
+<div class='container'>
+    <h1> لاگین </h1>
+    <form method='POST'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type='submit' value='لاگین' class='btn btn-success'>
+    </form>
+</div>

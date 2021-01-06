@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
    # 'django.contrib.gis',
     # Outdoor apps 
+    'rest_framework',
     'ckeditor',
     'ckeditor_uploader',
 
@@ -145,3 +146,17 @@ SESSION_COOKIE_DOMAIN = None
 SESSION_COOKIE_SECURE = True 
 SESSION_EXPIRE_AT_BROWSER_CLOSE =False
 CART_SESSION_ID = 'cart'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES' : (
+        'rest_framework.authentication.SessionAuthentication', 
+
+    ), 
+    'DEFAULT_PERMISSION_CLASSES' : (
+        'rest_framework.permissons.IsAuthenticatedOrReadOnly',
+    ),
+}
+
+LOGIN_REDIRECT_URL = 'shop:list'
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_email')

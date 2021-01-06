@@ -7,23 +7,23 @@ class AccountAdmin(BaseUserAdmin):
 	form = UserCreationForm
 	add_form = UserChangeForm
 
-	list_display =  ('email', 'name', 'phone', 'date_of_birth', 'is_staff',  'is_superuser')
+	list_display =  ('email', 'username', 'phone','avatar', 'is_staff',  'is_superuser')
 	list_filter = ('is_superuser',)
 	
 	fieldsets = (
 		(None, {'fields': ('email', 'is_staff', 'is_superuser', 'password')}),
-		('Personal info', {'fields': ('name', 'phone', 'date_of_birth', 'picture')}),
+		('Personal info', {'fields': ('username', 'phone', 'avatar')}),
 		('Groups', {'fields': ('groups',)}),
 		('Permissions', {'fields': ('user_permissions',)}),
 	)
 	add_fieldsets = (
-		(None, {'fields': ('email', 'is_staff', 'is_superuser', 'password1', 'password2')}),
-		('Personal info', {'fields': ('name', 'phone', 'date_of_birth', 'picture')}),
+		(None, {'fields': ('email','password'),}),
+		('Personal info', {'fields': ('username', 'phone', 'avatar')}),
 		('Groups', {'fields': ('groups',)}),
 		('Permissions', {'fields': ('user_permissions',)}),
 	)
 
-	search_fields = ('email', 'name', 'phone')
+	search_fields = ('email', 'username', 'phone')
 	ordering = ('email',)
 	filter_horizontal = ()
 

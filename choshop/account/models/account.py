@@ -2,17 +2,13 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.contrib.auth import get_user_model
 from django.utils import timezone 
-from shop.models import Shop 
-
-
-
-
+from django.urls import reverse, reverse_lazy
 
 class AccountManager(BaseUserManager):
 	use_in_migrations = True 
 
-	def _create_user(self, email, name, phone,password, **extra_fields):
-		values = [email, name,  phone]
+	def _create_user(self, email, username, phone,password, **extra_fields):
+		values = [email,username, phone]
 		field_value_map = dict(zip(self.model.REQUIRED_FIELDS, values))
 		for field_name, value in field_value_map.items():
 			if not value: 
@@ -21,7 +17,7 @@ class AccountManager(BaseUserManager):
 
 		email = self.normalize_email(email)
 		
-		user = self.model(email=email, name=name, phone=phone, **extra_fields)
+		user = self.model(email=email, username=username, phone=phone, **extra_fields)
 
 		user.set_password(password)
 
@@ -29,29 +25,30 @@ class AccountManager(BaseUserManager):
 
 		return user 
 
-	def create_user(self, email,name,phone,password=None, **extra_fields):
+	def create_user(self, email,username,phone,password=None, **extra_fields):
 		extra_fields.setdefault('is_staff', False)
 		extra_fields.setdefault('is_superuser', False)
-		return self._create_user(email, name, phone,password, **extra_fields)
+		return self._create_user(email, username, phone,password, **extra_fields)
 
 	
-	def create_staff(self, email, name, phone, password=None, **extra_fields):
+	def create_staff(self, email, username, phone, password=None, **extra_fields):
 		extra_fields.setdefault('is_staff', True)
 		extra_fields.setdefault('is_superuser', False)
-		return self._create_user(email, name, phone,password, **extra_fields)
+		return self._create_user(email, username, phone,password, **extra_fields)
 
 
-	def create_superuser(self, email, name, phone, password=None, **extra_fields):
+	def create_superuser(self, email, username, phone, password=None, **extra_fields):
 		extra_fields.setdefault('is_staff', True)
 		extra_fields.setdefault('is_superuser', True)
-		return self._create_user(email, name, phone,password, **extra_fields)
+		return self._create_user(email, username, phone,password, **extra_fields)
 
 class Account(AbstractBaseUser, PermissionsMixin):
 	email = models.EmailField(unique=True)
-	name = models.CharField(max_length=50)
+	username = models.CharField(max_length=40, unique=True)
 	phone = models.CharField(max_length=50)
-	date_of_birth = models.DateField(blank=True, null=True)
-	picture = models.ImageField(blank=True, null=True)
+	bio = models.CharField(max_length=140, blank=True, default='')
+	# date_of_birth = models.DateField(blank=True, null=True)
+	avatar = models.ImageField(blank=True, null=True)
 	is_staff = models.BooleanField(default=False)
 	is_active = models.BooleanField(default=True)
 	date_joined = models.DateTimeField(default=timezone.now)
@@ -61,49 +58,21 @@ class Account(AbstractBaseUser, PermissionsMixin):
 	# USERNAME_FIELD is the name of the field on the user model that is used as the unique identifier.
 	USERNAME_FIELD = 'email'
 	# REQUIRED_FIELDS are the mandatory fields other than the unique identifier
-	REQUIRED_FIELDS = ['name', 'phone']
+	REQUIRED_FIELDS = ['username', 'phone']
 
 
 # https://dev.to/joshwizzy/customizing-django-authentication-using-abstractbaseuser-llg
+	class Meta:
+		unique_together = ('email', 'username', 'phone')
 
-	def get_full_name(self):
-		return self.name
+	def __str__(self):
+		return f'@{self.username}'
 
 	def get_short_name(self):
-		return self.name.split()[0]
+		return self.username
 
-
+	def get_absolute_url(self):
+		return reverse("account:profile_detail", kwargs={"pk": self.pk})	
 	#class Meta:
 	#	abstract = True 
-
-
-class Buyer(Account):
-	pass
-
-
-class Shopper(Account):
-	shops = models.OneToOneField(Shop, on_delete=models.CASCADE)
-
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

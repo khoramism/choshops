@@ -1,0 +1,6 @@
+<h1> {{ account.name }} </h1>
+
+<p class='muted'> {{ account.email }} </p>
+<p> the are Badasss, </p>
+
+<p> <a href='{% url "account:update_account" pk={{ account.pk }} %}' class='btn btn-primary'>Edit </a> </p>

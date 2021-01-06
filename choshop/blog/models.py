@@ -31,19 +31,14 @@ class Post(models.Model):
 
 	description = RichTextUploadingField()
 	
-	#cat = TaggableManager()
+	cat = models.ForeignKey(Category)
 	
-	publish = models.DateTimeField(default = timezone.now, verbose_name='انتشار')
-	
-	created = models.DateTimeField(auto_now_add = True, verbose_name='ساخت',null=True)
-	
-	updated = models.DateTimeField(auto_now = True,verbose_name='آپدیت')
+	sub_cat = models.ForeignKey(SubCategory)
 	
 	status = models.CharField(max_length=60, choices = STATUS_CHOICES, default='draft', verbose_name='وضعیت')
 
 	author = models.ForeignKey(Account,on_delete= models.SET_NULL,blank=True, null=True)
 	
-	#slug = models.SlugField(max_length=100, verbose_name='لینک',default='')
 
 	def get_absolute_url(self):
 
@@ -53,4 +48,53 @@ class Post(models.Model):
 	#def save(self):
 	#	self.slug = slugify(self.title)
 	#	super(Post,self).save()
+"""
+class TimeStampedModel(models.Model):
+created = models.DateTimeField(auto_now_add=True)
+modified = models.DateTimeField(auto_now =True)
+class Meta:
+abstract = True
+class Postable(TimeStampedModel):
+message = models.TextField(max_length=500)
+...
+class Meta:
+abstract = True
+class Post(Postable):
+...
+class Comment(Postable):
+...
+106 Django Design Patterns
+and Best Practices
 
+"""
+# class Shop 
+# class Issiues 
+# class Images 
+# class Products
+# class Session(CARD or Sth like that) 
+class Category(models.Model):
+	
+	name = models.CharField(max_length=50)
+
+	def __str__(self):
+		return self.name 
+
+	class Meta:
+		ordering = ('name', )
+		verbose_name = 'تگ'
+		verbose_name_plural = 'تگ ها '
+
+class SubCategory(models.Model):
+	
+	name = models.CharField(max_length=50)
+
+	cat = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+
+	def __str__(self):
+		return f'{self.name} in {self.cat}' 
+
+	class Meta:
+		ordering = ('name', )
+		verbose_name ='زیرتگ '
+		verbose_name_plural = 'زیرتگ ها '
