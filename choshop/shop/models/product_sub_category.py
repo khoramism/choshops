@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from core.shared import Postable
-from .category import Category
+from .product_category import Category
 
 class SubCategory(Postable):
 	

@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from .shared import Postable, TimeStampedModel
+from core.shared import Postable, TimeStampedModel
 from .post import Post
 from account.models import Account 
 

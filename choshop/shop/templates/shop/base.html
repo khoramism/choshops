@@ -1,9 +1,17 @@
-e following form to the product price as follows:
-<p class="price">${{ product.price }}</p>
-<form action="{% url "cart:cart_add" product.id %}" method="post">
-[ 249 ]Building an Online Shop
-{{ cart_product_form }}
-{% csrf_token %}
-<input type="submit" value="Add to cart">
-</form>
-{{ product.description|linebreaks }}
+
+{% block content %}
+<div class="cart">
+    {% with total_items=cart|length %}
+        {% if total_items > 0 %}
+            سبد خرید شما:
+            <a href="{% url "cart:cart_detail" %}">
+            {{ total_items }} نوع{{ total_items|pluralize }},
+            ${{ cart.get_total_price }}
+            </a>
+            {% else %}
+            سبد خرید شما خالی است!
+        {% endif %}
+    {% endwith %}
+</div>
+<h1> PARADISE </h1>
+{% endblock %}

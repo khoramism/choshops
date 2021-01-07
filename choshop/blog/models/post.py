@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
 from account.models import Account 
-from .shared import Postable
+from core.shared import Postable
 from .sub_category import SubCategory
 from .category import Category
 
@@ -31,9 +31,9 @@ class Post(models.Model):
 
 	description = RichTextUploadingField()
 	
-	cat = models.ForeignKey(Category)
+	cat = models.ForeignKey(Category, on_delete=models.CASCADE)
 	
-	sub_cat = models.ForeignKey(SubCategory)
+	sub_cat = models.ForeignKey(SubCategory,on_delete=models.CASCADE)
 	
 	status = models.CharField(max_length=60, choices = STATUS_CHOICES, default='draft', verbose_name='وضعیت')
 

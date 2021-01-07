@@ -53,6 +53,12 @@ class Account(AbstractBaseUser, PermissionsMixin):
 	is_active = models.BooleanField(default=True)
 	date_joined = models.DateTimeField(default=timezone.now)
 	last_login = models.DateTimeField(null=True)
+	# Do apply this with IP as well 
+	address = models.CharField(max_length=250)
+	first_name = models.CharField(max_length=50)
+	last_name = models.CharField(max_length=50)
+	postal_code = models.CharField(max_length=20)
+	city = models.CharField(max_length=100)
 	
 	objects = AccountManager()
 	# USERNAME_FIELD is the name of the field on the user model that is used as the unique identifier.

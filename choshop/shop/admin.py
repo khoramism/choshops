@@ -1,6 +1,6 @@
 from django.contrib import admin
 #from django.contrib.gis.admin import OSMGeoAdmin
-from .models import Shop, Product, Category, SubCategory, Location 
+from .models import Shop, Product, Category, SubCategory 
 # Register your models here.
 admin.site.register(Shop)
 #admin.site.register(Product)
@@ -20,8 +20,8 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'price', 'created', 'updated']
-    list_filter = ['created', 'updated']
+    list_display = ['name', 'slug', 'price', 'publish', 'updated']
+    list_filter = ['publish', 'updated']
     list_editable = ['price',]
     prepopulated_fields = {'slug': ('name',)}
 
