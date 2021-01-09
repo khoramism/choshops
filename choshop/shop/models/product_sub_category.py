@@ -5,9 +5,9 @@ from .product_category import Category
 
 class SubCategory(Postable):
 	
-	name = models.CharField(max_length=50)
+	name = models.CharField(max_length=50,verbose_name='نام زیر تگ')
 
-	cat = models.ForeignKey(Category, on_delete=models.CASCADE)
+	cat = models.ForeignKey(Category, on_delete=models.CASCADE,verbose_name='نام تگ اصلی ')
 
 
 	def __str__(self):

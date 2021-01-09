@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-   # 'django.contrib.gis',
+    #'django.contrib.gis',
     # Outdoor apps 
     'rest_framework',
     'ckeditor',
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'markers.apps.MarkersConfig',
 ]
 
 MIDDLEWARE = [
@@ -92,6 +93,20 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+'''
+# We need to install the SQLite spatial extension SpatiaLite:
+
+# on Debian-based GNU/Linux distributions (es: Debian, Ubuntu, …): 
+###### apt install libsqlite3-mod-spatialite
+
+# ADD THIS INSTEAD 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.contrib.gis.db.backends.spatialite",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
+'''
 
 
 # Password validation
@@ -132,6 +147,22 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(str(BASE_DIR), "staticfiles")
+]
+
+STATIC_ROOT =  f"{BASE_DIR}/cdn_test/static" # AWS S3 + Cloudfront, Google Cloud Storage, django-storages
+
+MEDIA_URL = "/media/"
+# any file field upload by default
+MEDIA_ROOT =  f"{BASE_DIR}/cdn_test/media"
+
+PROTECTED_MEDIA =  f"{BASE_DIR}/cdn_test/protected"
+
+
+
+
+# USER MODEL 
 AUTH_USER_MODEL = 'account.Account'
 
 # URL 
@@ -139,7 +170,7 @@ ALLOW_UNICODE_SLUGS = True
 
 
 ### CK EDITOR 
-CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
+CKEDITOR_UPLOAD_PATH = 'media/ckeditor/'
 
 
 ## SESSION STUFF 

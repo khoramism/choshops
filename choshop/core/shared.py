@@ -12,8 +12,8 @@ and Best Practices
 """
 
 class TimeStampedModel(models.Model):	
-	publish = models.DateTimeField(default = timezone.now, verbose_name='انتشار')
-	
+	created =models.DateTimeField(auto_now_add=True,verbose_name='ساخت')
+	publish = models.DateTimeField(default = timezone.now,verbose_name='انتشار')
 	updated = models.DateTimeField(auto_now = True,verbose_name='آپدیت')
 	
 	class Meta:
@@ -23,15 +23,9 @@ class TimeStampedModel(models.Model):
 class Postable(TimeStampedModel):
 	#is_active = models.BooleanField(default=True)
 	
-	meta_keywords = models.CharField(max_length=255, help_text='Comma-delimited set of SEO keywords for meta tag')
-
-	meta_description = models.CharField(max_length=255, help_text='Content for description meta tag')
-
 	slug = models.SlugField(max_length=100, verbose_name='لینک',default='')
 
-	summary = models.CharField(max_length=300,blank=True,null=True,default='')
-
-	image = models.ImageField(verbose_name='تصویر', upload_to='media/')
+	summary = models.CharField(max_length=300,blank=True,null=True,verbose_name='خلاصه')
 
 	class Meta:
 		abstract = True
