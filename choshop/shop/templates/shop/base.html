@@ -77,8 +77,13 @@
                 </ul>
             </div>
         </nav>
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
         <!--/.Navbar -->
         <script type="text/javascript"></script>
+
+
             <br>
     <br>
     <br>

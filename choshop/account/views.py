@@ -11,6 +11,10 @@ from django.contrib.auth.forms import AuthenticationForm
 # Our Project 
 from .models import Account
 from .forms import RegistrationForm, UserCreationForm
+# Out of 
+import logging 
+
+logger = logging.getLogger(__name__)
 
 
 class RegistrationView(CreateView):

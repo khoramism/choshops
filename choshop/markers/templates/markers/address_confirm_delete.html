@@ -1,0 +1,9 @@
+{% extends "shop/base.html" %}
+{% block content %}
+  <h2> حذف ادرس</h2>
+  <form method="POST">
+    {%  csrf_token %}
+    <p>Aآیا اطمینان دارید که میخواهید ادرس را حذف کنید؟</p>
+    <button type="submit" class="btn btn-danger">حذف</button>
+  </form>
+{% endblock content %}

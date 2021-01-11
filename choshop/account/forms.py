@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.models import Group
-from django.contrib.auth.forms import AuthenticationForm,ReadOnlyPasswordHashField
+from django.contrib.auth.forms import (UsernameField,
+										UserCreationForm as DjangoUserCreationForm,
+										AuthenticationForm,
+										ReadOnlyPasswordHashField)
 from .models import Account 
 
 class RegistrationForm(forms.ModelForm):
@@ -81,12 +84,83 @@ class LoginForm(AuthenticationForm):
 
 '''
 
+'''
+
+GOOD EXAMPLE 
+
+class Lead(models.Model):
+    name = models.CharField(max_length=32)
+class LeadForm(forms.ModelForm):
+    class Meta:
+        model = Lead
+        fields = ('name', )
+# Creating a form to add a lead.
+>>> form = LeadForm()
+# Create a form instance with POST data for a new lead
+>>> form = LeadForm(request.POST)
+# Creating a form to change an existing lead.
+>>> lead = Lead.objects.get(pk=1)
+>>> form = LeadForm(instance=lead)
+# Create a form instance with POST data for an existing lead
+>>> form = LeadForm(request.POST, instance=lead)
+# Creates the lead entry in the database, or
+# triggers an update if an instance was passed in.
+>>> new_lead = form.save()
+
+'''
+
+class AuthenticationForm(forms.Form):
+    email = forms.EmailField()
+    password = forms.CharField(
+        strip=False, widget=forms.PasswordInput
+    )
+    def __init__(self, request=None, *args, **kwargs):
+		self.fields['email'].label = 'آدرس ایمیل شما' 
+		self.fields['phone'].label = 'شماره همراه شما' 
+        self.request = request
+        self.user = None
+        super().__init__(*args, **kwargs)
+    def clean(self):
+        email = self.cleaned_data.get("email")
+        password = self.cleaned_data.get("password")
+        if email is not None and password:
+            self.user = authenticate(
+                self.request, email=email, password=password
+            )
+            if self.user is None:
+               raise forms.ValidationError(
+                   "ایمیل یا رمز عبور شما صحیح نمی باشد!"
+               )
+            logger.info(
+                "Authentication successful for email=%s", email
+            )
+        return self.cleaned_data
+
+    def get_user(self):
+        return self.user
 
 
 
 
+class UserCreationForm2(DjangoUserCreationForm):
+    class Meta(DjangoUserCreationForm.Meta):
+        model = Account
+        fields = ("email",)
+        field_classes = {"email": UsernameField}
 
-
+    def send_mail(self):
+        logger.info(
+            "Sending signup email for email=%s",
+            self.cleaned_data["email"],
+        )
+        message = f"{self.cleaned_data["email"]} به به "
+        send_mail(
+            "به چوشاب خوش اومدین!",
+            message,
+            "site@booktime.domain",
+            [self.cleaned_data["email"]],
+            fail_silently=True,
+        )
 
 
 
