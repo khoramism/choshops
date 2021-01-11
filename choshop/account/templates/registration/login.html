@@ -1,11 +1,27 @@
+{% extends 'shop/base.html' %}
+{% block title %}
+ login 
+{% endblock %}
 
 
 
-<div class='container'>
+
+{% block content %}
     <h1> لاگین </h1>
+ 
+    <br>
+    <br>
     <form method='POST'>
-        {% csrf_token %}
-        {{ form.as_p }}
+        {% csrf_token %}<!--Grid column-->
+        <div class="col-md-6">
+            <div class="md-form mb-0">
+                ایمیل
+                {{ form.username }}
+            </div>
+            <div class="md-form mb-0">
+                پسورد{{ form.password }}
+            </div>
+        </div>
         <input type='submit' value='لاگین' class='btn btn-success'>
     </form>
-</div>
+{% endblock %}

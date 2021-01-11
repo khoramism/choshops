@@ -1,8 +1,8 @@
 from django.db import models
 #from django.contrib.gis.db import models as gis_models 
 from account.models import Account
-from .product_category import Category 
-from .product_sub_category import SubCategory 
+from .product_tag import ProductTag 
+from .product_sub_tag import ProductSubTag 
 #from .product import Product
 from core.shared import Postable
 from django.utils import timezone

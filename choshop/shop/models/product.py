@@ -2,8 +2,9 @@ from django.db import models
 from django.conf import settings 
 #from django.contrib.gis.db import models as gis_models 
 from account.models import Account 
-from .product_category import Category 
-from .product_sub_category import SubCategory 
+from .product_tag import ProductTag 
+from .product_image import ProductImage
+from .product_sub_tag import ProductSubTag 
 from core.shared import Postable
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -34,16 +35,16 @@ class Product(Postable):
 
 	is_finishing = models.BooleanField(verbose_name='آیا محصول در آستانه به پایان رسیدن است؟', default=False)
 
-	category = models.ManyToManyField(Category,verbose_name='تگ')	
+	tags = models.ManyToManyField(ProductTag,verbose_name='تگ')	
 
-	sub_category = models.ManyToManyField(SubCategory,verbose_name='زیر تگ')
+	sub_tags = models.ManyToManyField(ProductSubTag,verbose_name='زیر تگ')
 
 	for_the_shop = models.ForeignKey(Shop, on_delete=models.CASCADE,verbose_name='برای فروشگاهه')
 
 	price = models.DecimalField(max_digits=10, decimal_places=2,verbose_name='قیمت')
 	
-	image = models.ImageField(upload_to='products/', null=True, blank=True,verbose_name='تصویر')
-	
+	image = models.ForeignKey(ProductImage, on_delete=True)
+
 	video_link = models.URLField(blank=True, null=True ,verbose_name='لینک ویدیو')
 	
 	media = models.FileField(storage=ProtectedStorage, upload_to='products/', null=True, blank=True,verbose_name='فایل غیره')

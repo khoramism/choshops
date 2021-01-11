@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import Group
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import AuthenticationForm,ReadOnlyPasswordHashField
 from .models import Account 
 
 class RegistrationForm(forms.ModelForm):
@@ -65,14 +65,21 @@ class UserChangeForm(forms.ModelForm):
 		# This is done here, rather than on the field, because the feild does not have access to the initial value 
 		return self.initial['password']
 
-	
+	'''
+
+class LoginForm(AuthenticationForm):
+	email = forms.EmailField(widget=forms.EmailInput())
+	password = forms.CharField(label='پسورد', widget=forms.PasswordInput)
+	class Meta:
+		model = Account
+		fields = ('email', 'password')
+	def __init__(self, *args,**kwargs):
+		super().__init__(*args,**kwargs)
+		self.fields['email'].label = 'آدرس ایمیل شما' 
 
 
 
-
-
-
-
+'''
 
 
 

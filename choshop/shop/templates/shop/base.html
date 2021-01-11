@@ -1,17 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
 
-{% block content %}
-<div class="cart">
-    {% with total_items=cart|length %}
-        {% if total_items > 0 %}
-            سبد خرید شما:
-            <a href="{% url "cart:cart_detail" %}">
-            {{ total_items }} نوع{{ total_items|pluralize }},
-            ${{ cart.get_total_price }}
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title> -چوشاپ{% block title%} {% endblock %}
+    </title>
+    <!-- Font Awesome -->
+    <!-- MDB -->
+
+    <!-- MDB -->
+    <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+    <!-- Custom scripts -->
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}">
+    <!-- Custom styles -->
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class='fluid-container'>
+        <!--Navbar -->
+        <nav class="mb-1 navbar navbar-expand-md  navbar-dark fixed-top bg-info">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333" aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
             </a>
-            {% else %}
-            سبد خرید شما خالی است!
-        {% endif %}
-    {% endwith %}
-</div>
-<h1> PARADISE </h1>
-{% endblock %}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown
+            </a>
+                        <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto nav-flex-icons">
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light">
+                            <i class="fab fa-google-plus-g"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--/.Navbar -->
+        <script type="text/javascript"></script>
+            <br>
+    <br>
+    <br>
+        {% block content %} {% endblock %}
+    </div>
+    <div class='container'>
+
+
+    </div>
+</body>
+
+</html>

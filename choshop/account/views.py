@@ -47,12 +47,12 @@ class LogoutView(generic.RedirectView):
 	def get(self, request, *args, **kwargs):
 		logout(request)
 		return super().get(request, *args, **kwargs)
-
 '''
+
 class LoginView(generic.FormView):
-	form_class = AuthenticationForm
+	form_class = LoginForm
 	success_url = reverse_lazy('shop:list')
-	template_name = 'account/registeration/login.html'
+	template_name = 'registeration/login.html'
 
 	def get_form(self, form_class=None):
 		if form_class is None:
@@ -64,7 +64,6 @@ class LoginView(generic.FormView):
 		auth_login(self.request, form.get_user())
 		return super().form_valid(form)
 '''
-
 ### TRAININGS 
 from . import mixins 
 class HomeView(TemplateView):
@@ -104,6 +103,9 @@ class AccountUpdateView(LoginRequiredMixin,mixins.PageTitleMixin,UpdateView):
 	def get_page_title(self):
 		obj = self.get_object()
 		return f"Update {obj.username}"
+
+
+
 class AccountDeleteView(LoginRequiredMixin,DeleteView):
 	model = Account
 	success_url = reverse_lazy('account:list_account')

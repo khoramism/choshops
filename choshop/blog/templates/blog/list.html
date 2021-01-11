@@ -1,0 +1,25 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+{% for post in posts %}
+   <div class="card" style="max-width: 22rem;">
+
+      <!-- Card image -->
+      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap">
+
+      <!-- Card content -->
+      <div class="card-body">
+
+        <!-- Title -->
+        <h4 class="card-title"><a>{{ post.title }} {{ post.slug }}  </a></h4>
+        <!-- Text -->
+        <p class="card-text">{{ post.description| safe  }}</p>
+        <!-- Button -->
+        <a href="#" class="btn btn-primary">Button</a>
+
+      </div>
+
+    </div>
+
+{% endfor %}
+{% endblock %}
