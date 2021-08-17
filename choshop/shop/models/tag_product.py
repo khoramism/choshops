@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from core.shared import Postable
-from .product import Product
+#from .product import Product
 
 from shop.managers import ProductCategoryManager
 '''
@@ -15,7 +15,7 @@ class ProductTag(Postable):
 	
 	name = models.CharField(max_length=50,verbose_name='نام تگ')
 
-	products = models.ManyToManyField(Product, blank=True) 
+	#products = models.ManyToManyField(Product, blank=True) 
 	
 	
 	objects = ProductCategoryManager()

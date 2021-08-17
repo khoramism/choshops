@@ -18,6 +18,8 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
+from graphene_django.views import GraphQLView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
@@ -30,6 +32,8 @@ urlpatterns = [
     path('markers', include('markers.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ]
 
 if settings.DEBUG:

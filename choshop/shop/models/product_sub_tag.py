@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from core.shared import Postable
 from .product import Product 
-from .product_tag import ProductTag
+from .tag_product import ProductTag
 from shop.managers import ProductCategoryManager
 
 class ProductSubTag(Postable):

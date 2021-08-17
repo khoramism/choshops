@@ -6,10 +6,11 @@ from django.core.management import call_command
 from django.test import TestCase, override_settings
 from . import models
 from django.shortcuts import reverse
-
 from django.core.files.images import ImageFile
 from decimal import Decimal
-
+from django.core.files.images import ImageFile 
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from selenium.webdriver.firefox.webdriver import WebDriver
 
 class TestSignal(TestCase):
     def test_thumbnails_are_generated_on_save(self):
@@ -136,3 +137,40 @@ class TestPage(TestCase):
             list(response.context["object_list"]),
             list(product_list),
         )
+
+class FrontEndTests(StaticLiveServerTestCase):
+    @classmethod 
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.selenium = Webdriver()
+        cls.selenium.implicity_wait(10)
+
+    @classmethod
+    def teadDownClass(cls):
+        cls.selenium.quit()
+        super().tearDown()
+
+    def test_product_page_switches_images_correctly(self):
+        product = models.Product.objects.create(
+            name = 'The cathedral and the bazaar'
+            name="The cathedral and the bazaar",
+            slug="cathedral-bazaar",
+            price=Decimal("10.00"),
+        )
+        for fname in ["cb1.jpg", "cb2.jpg", "cb3.jpg"]:
+            with open(f'shop/cb/{fname}', 'rb') as f:
+                image = models.ProductImage(
+                    product = product,
+                    image = ImageFile(f, name=fname),
+                )
+                image.save()
+        self.selenium.get(f'{self.live_server_url}{reverse('product', kwargs={'slug':'athedral-bazaar'})}')
+        current_image = self.selenium.find_element_by_css_selector(
+            '.current-image > img:nth-child(1)').get_attribute('src')
+        self.selenium.find_element_by_css_selector(
+           "div.image:nth-child(3) > img:nth-child(1)"
+        ).click()
+        new_image = self.selenium.find_element_by_css_selector(
+           ".current-image > img:nth-child(1)"
+        ).get_attribute("src")
+        self.assertNotEqual(current_image, new_image)

@@ -44,17 +44,4 @@
         </div>
    <button type="submit" class="btn btn-­primary">ثبت</button>
 </form>
-    <form method='POST'>
-        {% csrf_token %}<!--Grid column-->
-        <div class="col-md-6">
-            <div class="md-form mb-0">
-                ایمیل
-                {{ form.username }}
-            </div>
-            <div class="md-form mb-0">
-                پسورد{{ form.password }}
-            </div>
-        </div>
-        <input type='submit' value='لاگین' class='btn btn-success'>
-    </form>
 {% endblock %}

@@ -1,0 +1,13 @@
+{
+    "folders": [
+		{
+			"path": "../../../.."
+		},
+		{
+			"path": "../../../../../../../../media/alireza/Alireza-Stu/Alaa/Django-Bootcamp-1/cdn_test"
+		}
+	],
+    "settings": {
+        "liveServer.settings.multiRootWorkspaceName": "projects"
+    }
+}

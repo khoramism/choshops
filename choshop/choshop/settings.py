@@ -39,10 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'django.contrib.gis',
     # Outdoor apps 
-    'rest_framework',
+    'rest_framework', # user Visits 
+    'user_visit',
+    # Graphene 
+    'graphene_django',
+    # Forms
     'ckeditor',
     'ckeditor_uploader',
-
+    'webpack_loader',
     # Our apps 
     'account.apps.AccountConfig',
     'blog.apps.BlogConfig',
@@ -247,3 +251,36 @@ REST_FRAMEWORK = {
 LOGIN_REDIRECT_URL = 'shop:list'
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_email')
+
+
+# REACT SETTING 
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
+
+
+
+# GRAPHQL 
+
+GRAPHENE = {
+    'SCHEMA': 'choshop.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+
+}
+
+
+
+# DRF #
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

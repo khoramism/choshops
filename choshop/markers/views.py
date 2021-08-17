@@ -67,6 +67,6 @@ class AddressUpdateView(LoginRequiredMixin, generic.edit.UpdateView):
 class AddressDeleteView(LoginRequiredMixin, generic.edit.DeleteView):
 	model = models.Address
     success_url = reverse_lazy("address_list")
-	template_name = 'address/address_confirm_delete'
+	template_name = 'address/address_confirm_delete.html'
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user)

@@ -6,5 +6,7 @@ from django.urls import reverse, reverse_lazy
 from shop.models import Shop 
 from .account import Account 
 
-class Shopper(Account):
+class Shopper(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+
+    account = models.OneToOneField(Account)

@@ -1,7 +1,7 @@
 from django.db import models
 #from django.contrib.gis.db import models as gis_models 
 from account.models import Account
-from .product_tag import ProductTag 
+from .tag_product import ProductTag 
 from .product_sub_tag import ProductSubTag 
 #from .product import Product
 from core.shared import Postable
