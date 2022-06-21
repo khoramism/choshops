@@ -6,18 +6,6 @@ from core.shared import Postable
 from .sub_category import SubCategory
 from .category import Category
 
-def dir_path(instance, filename): 
-
-	# file will be uploaded to MEDIA_ROOT / auth /user_<id>/<filename>
-
-	if instance.__class__.__name__ == 'Language':
-
-		return f'media/uploads/images/{instance.__class__.__name__}/{instance.name}/{filename}'
-
-	elif instance.__class__.__name__ == "Intro":
-
-		return f'media/uploads/images/Language/{instance.__class__.__name__}/{instance.name}/{filename}'
-
 class Post(models.Model):
 
 	STATUS_CHOICES = (

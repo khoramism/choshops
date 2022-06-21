@@ -6,6 +6,10 @@ from account.models import Account
 
 ## NEEDS WORK 
 class Comment(TimeStampedModel):
+    title = models.CharField(max_length=50)
+
+    content = models.TextField()
+
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
     commentor = models.ForeignKey(Account, on_delete=models.CASCADE)
